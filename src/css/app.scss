@@ -17,3 +17,10 @@ hr {
 	cursor: pointer;
 	&:hover { text-decoration: underline; }
 }
+
+.swms-narrow {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 700px;
+}

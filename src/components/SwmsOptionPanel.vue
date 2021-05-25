@@ -1,10 +1,14 @@
 <template>
 	<div class="swms-option-panel">
-		<div class="swms-btn-wrapper">
-			<q-btn @click="openDrawer(null)" no-caps flat color="primary" :disable="idSearchActive">
-				Create new&nbsp;
-				<q-icon name="add" size="xs" />
-			</q-btn>
+		<div class="swms-btn-wrapper row items-center">
+			<div class="text-caption">View mode: &nbsp;</div>
+			<q-btn-toggle
+				v-model="tabModel"
+				toggle-color="lime-10"
+				no-caps
+				unelevated
+				:options="viewModeOptions"
+			/>
 		</div>
 
 		<q-btn @click="openFilterDialog" no-caps flat color="primary" :disable="idSearchActive">
@@ -34,6 +38,12 @@ export default Vue.extend({
 	data () {
 	  return {
 	    searchBinModel: '',
+			pageModel: null,
+			viewModeOptions: [
+				{ label: 'Table view', value: 'viewTable' },
+				{ label: 'Tile view', value: 'viewTile' },
+				{ label: 'Map view', value: 'viewMap' }
+			]
 		}
 	},
   methods: {
@@ -61,6 +71,14 @@ export default Vue.extend({
 	computed: {
     idSearchActive (): boolean {
       return this.$store.state.idSearchActive as boolean
+		},
+		tabModel: {
+      get (): string {
+        return this.$route.name
+			},
+			set (value: string): void {
+        void this.$router.push({ name: value })
+			}
 		}
 	}
 })

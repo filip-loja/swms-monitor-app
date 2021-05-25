@@ -16,7 +16,12 @@ const routes: RouteConfig[] = [
           } else {
             next()
           }
-        }
+        },
+        children: [
+          { path: '', name: 'viewTable', component: () => import('pages/PageTableView.vue') },
+          { path: 'tile', name: 'viewTile', component: () => import('pages/PageTileView.vue') },
+          { path: 'map', name: 'viewMap', component: () => import('pages/PageMapView.vue') }
+        ]
       },
       {
         path: '/login',
