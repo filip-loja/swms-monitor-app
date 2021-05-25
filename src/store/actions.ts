@@ -209,7 +209,7 @@ export const logIn = (context: A, payload: any) => {
     return setTimeout(() => {
       const key = config.API_MANAGER_KEY
       Vue.prototype.$apiManager.defaults.headers.common['Authorization'] = key
-      Cookies.set('swsm-manager-key', key)
+      Cookies.set('swsm-monitor-key', key)
       context.commit('SET_LOGIN_STATE', true)
       context.commit('SET_LOADING', -1)
       resolve(true)
@@ -220,14 +220,14 @@ export const logIn = (context: A, payload: any) => {
 
 export const logOut = (context: A) => {
   delete Vue.prototype.$apiManager.defaults.headers.common['Authorization']
-  Cookies.remove('swsm-manager-key')
+  Cookies.remove('swsm-monitor-key')
   context.commit('SET_LOGIN_STATE', false)
   context.commit('CLEAR_ITEMS')
   context.commit('SET_NEXT_TOKEN', undefined)
 }
 
 export const loadManagerKey = (context: A) => {
-  const key = Cookies.get('swsm-manager-key')
+  const key = Cookies.get('swsm-monitor-key')
   if (key) {
     Vue.prototype.$apiManager.defaults.headers.common['Authorization'] = key
     context.commit('SET_LOGIN_STATE', true)

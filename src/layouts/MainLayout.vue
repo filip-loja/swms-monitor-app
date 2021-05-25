@@ -3,10 +3,10 @@
 
     <q-header elevated>
       <q-toolbar>
-				<q-icon name="delete_sweep" size="md" />
+				<q-icon name="device_hub" size="md" />
 
         <q-toolbar-title>
-          SWMS Manager
+          SWMS Monitor
         </q-toolbar-title>
 
 				<q-btn flat no-caps v-if="isLoggedIn" @click="logOut"><q-icon name="logout" size="xs" />&nbsp;&nbsp;&nbsp;Log out</q-btn>

@@ -2,7 +2,7 @@
 	<q-page class="row justify-center items-center">
 		<q-card bordered class="q-pa-md shadow-15 q-mb-lg" style="width: 400px">
 			<q-card-section >
-				<div class="text-h4 text-center">SWSM Manager</div>
+				<div class="text-h4 text-center">SWSM Monitor</div>
 			</q-card-section>
 			<q-card-section>
 				<q-form class="q-gutter-md">
