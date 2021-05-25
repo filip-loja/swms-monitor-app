@@ -2,22 +2,20 @@
 	<div class="swms-bin-table-wrapper q-pa-md">
 		<table v-if="binItems.length">
 			<tr>
+				<th></th>
 				<th>#</th>
 				<th>Bin ID</th>
 				<th>Type</th>
 				<th>Status</th>
 				<th>Actions</th>
 			</tr>
-			<tr v-for="(item, index) in binItems" :key="item.binId">
-				<td>{{ index + 1 }}</td>
-				<td><a class="swms-link" @click="viewDetails(item.binId)">{{ item.binId }}</a></td>
-				<td><swms-badge :value="item.type" /></td>
-				<td><swms-badge :value="item.status" /></td>
-				<td>
-					<q-btn round flat color="primary" icon="visibility" size="sm" @click="viewDetails(item.binId)" />
-					<q-btn round flat color="negative" icon="delete" size="sm" @click="deleteBin(item.binId)" />
-				</td>
-			</tr>
+			<swms-bin-table-row
+				v-for="(item, index) in binItems"
+				:key="item.binId"
+				:index="index"
+				:model="item"
+				@view="viewDetails"
+			/>
 		</table>
 		<q-banner v-if="showBanner" class="bg-deep-orange-2">
 			<template v-slot:avatar>
@@ -27,6 +25,9 @@
 				No smart binds found. Try changing settings of the filter.
 			</div>
 		</q-banner>
+		<div>
+			{{ selectedBins }}
+		</div>
 		<div class="text-center full-width" v-if="hasMore">
 			<br />
 			<q-btn flat color="primary" @click="loadMore">Load more</q-btn>
@@ -37,10 +38,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { BinDetail } from '../store/store'
-import SwmsBadge from 'components/SwmsBadge.vue'
+import SwmsBinTableRow from 'components/SwmsBinTableRow.vue'
 export default Vue.extend({
 	name: 'SwmsBinTable',
-	components: { SwmsBadge },
+	components: { SwmsBinTableRow },
 	computed: {
     binItems (): BinDetail[] {
       return this.$store.state.binItems as BinDetail[]
@@ -50,6 +51,9 @@ export default Vue.extend({
     },
 		showBanner (): boolean {
       return this.binItems.length === 0 && this.$store.state.loading <= 0
+		},
+		selectedBins (): string[] {
+      return this.$store.getters['selectedBins']
 		}
 	},
 	methods: {
@@ -59,17 +63,6 @@ export default Vue.extend({
     viewDetails (bindId: string) {
       void this.$store.dispatch('openDrawer', bindId)
     },
-    deleteBin (binId: string) {
-      this.$q.dialog({
-        title: 'Confirm your action',
-        message: `Do you really wish to delete this smart bin (${binId})?`,
-        ok: { color: 'negative', flat: true },
-				cancel: true,
-        persistent: true
-      }).onOk(() => {
-        void this.$store.dispatch('deleteBin', binId)
-      })
-		}
 	},
   mounted () {
     this.loadMore()
@@ -92,19 +85,9 @@ export default Vue.extend({
 				border-top: 1px solid $grey-5;
 			}
 
-			th, td {
+			th {
 				text-align: center;
 				padding: 3px 7px;
-			}
-
-			td {
-				width: 32%;
-			}
-
-			td:first-child,
-			td:last-child {
-				width: 1px;
-				white-space: nowrap;
 			}
 		}
 	}

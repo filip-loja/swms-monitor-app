@@ -55,3 +55,13 @@ export const UPDATE_BIN = (state: StateRoot, payload: BinDetail) => {
 export const SET_FIND_ID_FLAG = (state: StateRoot, flagValue: boolean) => {
   state.idSearchActive = flagValue
 }
+
+export const ADD_SELECTED_BIN = (state: StateRoot, id: string) => {
+  state.selectedBins.add(id)
+  state.selectedBinsCount++
+}
+
+export const REMOVE_SELECTED_BIN = (state: StateRoot, id: string) => {
+  state.selectedBins.delete(id)
+  state.selectedBinsCount--
+}

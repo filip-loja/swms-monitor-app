@@ -14,6 +14,8 @@ export interface StateRoot {
   nextToken: undefined;
   idSearchActive: boolean;
   loading: number;
+  selectedBins: Set<string>;
+  selectedBinsCount: number;
 }
 
 export interface BinDetail {

@@ -16,4 +16,6 @@ export default (): StateRoot => ({
   nextToken: null,
   idSearchActive: false,
   loading: 0,
+  selectedBins: new Set<string>(),
+  selectedBinsCount: 0
 })
