@@ -17,7 +17,10 @@
 		<div class="q-px-md q-py-sm swms-drawer">
 
 			<div class="row justify-between items-center">
-				<div class="text-h5">{{ drawerTitle }}</div>
+				<div class="row items-center">
+					<q-checkbox @input="selectBin($event, binId)" :value="isSelected" style="margin-left: -10px" />&nbsp;
+					<div class="text-h5">Smart bin: {{ binId }}</div>
+				</div>
 				<div>
 					<q-btn round flat icon="close" color="negative" @click="closeDrawer" />
 				</div>
@@ -49,6 +52,13 @@ export default Vue.extend({
     closeDrawer (): void {
       void this.$store.dispatch('closeDrawer')
     },
+    selectBin (add: boolean, id: string) {
+      if (add) {
+        this.$store.commit('ADD_SELECTED_BIN',id)
+      } else {
+        this.$store.commit('REMOVE_SELECTED_BIN', id)
+      }
+    },
 	},
 	computed: {
 	  binId (): string {
@@ -57,11 +67,11 @@ export default Vue.extend({
 	  drawerState (): boolean {
 	    return this.$store.state.drawerState as boolean
 		},
-		drawerTitle (): string {
-	    return `Smart bin: ${this.binId}`
-		},
     drawerBehavior (): string {
       return this.$route.name === 'viewMap' ? 'mobile' : 'desktop'
+    },
+    isSelected (): boolean {
+      return this.$store.getters['selectedBins'].includes(this.binId)
     }
 	}
 })
