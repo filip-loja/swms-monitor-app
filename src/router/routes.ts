@@ -1,6 +1,11 @@
 import { RouteConfig } from 'vue-router'
 import store from 'src/store/index'
 
+const closeDrawerGuard = (to: any, from: any, next: any) => {
+  void store.dispatch('closeDrawer')
+  next()
+}
+
 const routes: RouteConfig[] = [
   {
     path: '/',
@@ -11,6 +16,7 @@ const routes: RouteConfig[] = [
         name: 'home',
         component: () => import('pages/Index.vue'),
         beforeEnter (to, from, next) {
+
           if (!store.state.loggedIn) {
             next({ name: 'logIn' })
           } else {
@@ -18,9 +24,9 @@ const routes: RouteConfig[] = [
           }
         },
         children: [
-          { path: '', name: 'viewTable', component: () => import('pages/PageTableView.vue') },
-          { path: 'tile', name: 'viewTile', component: () => import('pages/PageTileView.vue') },
-          { path: 'map', name: 'viewMap', component: () => import('pages/PageMapView.vue') }
+          { path: '', name: 'viewTable', component: () => import('pages/PageTableView.vue'), beforeEnter: closeDrawerGuard },
+          { path: 'tile', name: 'viewTile', component: () => import('pages/PageTileView.vue'), beforeEnter: closeDrawerGuard },
+          { path: 'map', name: 'viewMap', component: () => import('pages/PageMapView.vue'), beforeEnter: closeDrawerGuard }
         ]
       },
       {

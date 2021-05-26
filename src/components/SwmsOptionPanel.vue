@@ -1,5 +1,5 @@
 <template>
-	<div class="swms-option-panel">
+	<div class="swms-option-panel text-black">
 		<div class="swms-btn-wrapper row items-center">
 			<div class="text-caption">View mode: &nbsp;</div>
 			<q-btn-toggle

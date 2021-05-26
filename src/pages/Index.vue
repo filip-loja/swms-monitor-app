@@ -1,6 +1,5 @@
 <template>
   <q-page>
-		<swms-option-panel />
 		<router-view :key="$route.fullPath" />
 
 		<div :class="[narrowContainer ? 'swms-narrow' : '']">
@@ -24,11 +23,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import SwmsOptionPanel from 'components/SwmsOptionPanel.vue'
 import { BinDetail } from 'src/store/store'
 export default Vue.extend({
   name: 'PageIndex',
-  components: { SwmsOptionPanel },
+  components: {  },
   data() {
     return { }
   },

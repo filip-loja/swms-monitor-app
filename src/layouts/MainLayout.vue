@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <q-header elevated>
-      <q-toolbar>
+    <q-header>
+      <q-toolbar class="shadow-1">
 				<q-icon name="device_hub" size="md" />
 
         <q-toolbar-title>
@@ -11,6 +11,7 @@
 
 				<q-btn flat no-caps v-if="isLoggedIn" @click="logOut"><q-icon name="logout" size="xs" />&nbsp;&nbsp;&nbsp;Log out</q-btn>
       </q-toolbar>
+			<swms-option-panel />
     </q-header>
 
 		<swms-drawer />
@@ -28,9 +29,10 @@
 import Vue from 'vue'
 import SwmsDrawer from 'components/SwmsDrawer.vue'
 import SwmsLoader from 'components/SwmsLoader.vue'
+import SwmsOptionPanel from 'components/SwmsOptionPanel.vue'
 export default Vue.extend({
   name: 'MainLayout',
-	components: { SwmsDrawer, SwmsLoader },
+	components: { SwmsDrawer, SwmsLoader, SwmsOptionPanel },
   data() {
     return { }
   },

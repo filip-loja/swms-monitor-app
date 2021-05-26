@@ -4,11 +4,9 @@
 		maximized
 		transition-show="slide-up"
 		transition-hide="slide-down"
-		@before-hide="onDialogClosed"
 	>
 		<q-card>
 			<q-bar class="bg-primary text-white">
-				<q-badge v-if="currentPosition" color="blue-grey-1" :label="currentPosition" class="swms-position-badge" />
 				<q-space />
 				<q-btn dense flat icon="close" v-close-popup>
 					<q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
@@ -16,10 +14,7 @@
 			</q-bar>
 
 			<div class="swms-map-dialog-inner">
-				<swms-azure-map @selected="onPointSelected" @move="onMapMove" :input-position="inputPosition" />
-				<div class="swms-check-btn" v-if="selectedPosition">
-					<q-btn round color="positive" icon="check" @click="emitValue = true" v-close-popup />
-				</div>
+				<swms-azure-map :input-position="inputPosition" />
 			</div>
 		</q-card>
 	</q-dialog>
@@ -34,11 +29,7 @@ export default Vue.extend({
 	data () {
 	  return {
 	    state: false,
-      maximizedToggle: false,
 			renderMap: false,
-			selectedPosition: null,
-			currentPosition: null,
-			emitValue: false,
 			inputPosition: null,
 		}
 	},
@@ -46,19 +37,6 @@ export default Vue.extend({
 	  show (payload: any) {
 	    this.inputPosition = payload
 	    this.state = true
-		},
-    onDialogClosed () {
-	    if (this.emitValue) {
-	    	this.$emit('selection', this.selectedPosition)
-			}
-			this.selectedPosition = null
-			this.emitValue = false
-		},
-		onPointSelected (position: any) {
-	    this.selectedPosition = position
-		},
-		onMapMove (position: string) {
-	    this.currentPosition = position
 		}
 	},
 	mounted () {
@@ -82,21 +60,6 @@ export default Vue.extend({
 		height: calc(100vh - 32px);
 		position: relative;
 		overflow: hidden;
-
-		.swms-check-btn {
-			display: table;
-			position: absolute;
-			right: 10px;
-			bottom: 10px;
-			z-index: 10000000;
-		}
-	}
-
-	.swms-position-badge {
-		font-family: monospace;
-		font-size: 13px;
-		color: black;
-		padding: 4px 6px;
 	}
 
 </style>
