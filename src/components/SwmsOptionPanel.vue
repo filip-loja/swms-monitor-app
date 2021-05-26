@@ -1,14 +1,11 @@
 <template>
 	<div class="swms-option-panel text-black">
-		<div class="swms-btn-wrapper row items-center">
-			<div class="text-caption">View mode: &nbsp;</div>
-			<q-btn-toggle
-				v-model="tabModel"
-				toggle-color="lime-10"
-				no-caps
-				unelevated
-				:options="viewModeOptions"
-			/>
+		<div class="swms-btn-wrapper">
+			<q-tabs align="left" shrink dense>
+				<q-route-tab no-caps :to="{name: 'viewTable'}" label="Table view" />
+				<q-route-tab no-caps :to="{name: 'viewTile'}" label="Tile view" />
+				<q-route-tab no-caps :to="{name: 'viewMap'}" label="Map view" />
+			</q-tabs>
 		</div>
 
 		<q-btn @click="openFilterDialog" no-caps flat color="primary" :disable="idSearchActive">

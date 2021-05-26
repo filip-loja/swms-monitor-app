@@ -42,7 +42,7 @@ export default Vue.extend({
 				})
 				setTimeout(() => this.error = false, 2000)
 			} else {
-	    	void this.$store.dispatch('logIn', this.model).then(() => this.$router.push({ name: 'home' }))
+	    	void this.$store.dispatch('logIn', this.model).then(() => this.$router.push({ name: 'viewTable' }))
 			}
 		}
 	}

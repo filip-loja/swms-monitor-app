@@ -9,9 +9,18 @@
           SWMS Monitor
         </q-toolbar-title>
 
-				<q-btn flat no-caps v-if="isLoggedIn" @click="logOut"><q-icon name="logout" size="xs" />&nbsp;&nbsp;&nbsp;Log out</q-btn>
+				<template v-if="isLoggedIn">
+					<q-tabs align="left" >
+						<q-route-tab no-caps :to="{name: 'viewTable'}" label="Home" />
+						<q-route-tab no-caps :to="{name: 'pageReports'}" label="Reports" />
+						<q-route-tab no-caps :to="{name: 'pageAlerts'}" label="Alerts" />
+					</q-tabs>
+					<div class="swms-logout-wrapper">
+						<q-btn flat no-caps @click="logOut"><q-icon name="logout" size="xs" />&nbsp;&nbsp;&nbsp;Log out</q-btn>
+					</div>
+				</template>
       </q-toolbar>
-			<swms-option-panel />
+			<swms-option-panel v-if="showOptionPanel" />
     </q-header>
 
 		<swms-drawer />
@@ -44,7 +53,18 @@ export default Vue.extend({
 	computed: {
     isLoggedIn (): boolean {
       return this.$store.state.loggedIn
-    }
+    },
+		showOptionPanel (): boolean {
+      return ['viewTable', 'viewTile', 'viewMap'].includes(this.$route.name)
+		}
 	}
 })
 </script>
+
+<style lang="scss">
+	.swms-logout-wrapper {
+		border-left: 1px solid rgba(255, 255, 255, 0.5);
+		padding-left: 5px;
+		margin-left: 10px;
+	}
+</style>

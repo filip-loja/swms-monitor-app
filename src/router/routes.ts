@@ -20,6 +20,8 @@ const routes: RouteConfig[] = [
           if (!store.state.loggedIn) {
             next({ name: 'logIn' })
           } else {
+            store.commit('CLEAR_ITEMS')
+            store.commit('SET_NEXT_TOKEN', undefined)
             next()
           }
         },
@@ -28,6 +30,18 @@ const routes: RouteConfig[] = [
           { path: 'tile', name: 'viewTile', component: () => import('pages/PageTileView.vue'), beforeEnter: closeDrawerGuard },
           { path: 'map', name: 'viewMap', component: () => import('pages/PageMapView.vue'), beforeEnter: closeDrawerGuard }
         ]
+      },
+      {
+        path: 'alerts',
+        name: 'pageAlerts',
+        component: () => import('pages/PageAlerts.vue'),
+        beforeEnter: closeDrawerGuard
+      },
+      {
+        path: 'reports',
+        name: 'pageReports',
+        component: () => import('pages/PageReports.vue'),
+        beforeEnter: closeDrawerGuard
       },
       {
         path: '/login',
