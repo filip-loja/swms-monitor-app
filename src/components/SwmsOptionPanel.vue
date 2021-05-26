@@ -1,7 +1,7 @@
 <template>
 	<div class="swms-option-panel text-black">
-		<div class="swms-btn-wrapper">
-			<q-tabs align="left" shrink dense>
+		<div class="swms-btn-wrapper swms-tabs no-indicator">
+			<q-tabs align="left" shrink dense active-color="primary">
 				<q-route-tab no-caps :to="{name: 'viewTable'}" label="Table view" />
 				<q-route-tab no-caps :to="{name: 'viewTile'}" label="Tile view" />
 				<q-route-tab no-caps :to="{name: 'viewMap'}" label="Map view" />

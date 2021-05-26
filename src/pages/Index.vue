@@ -1,6 +1,12 @@
 <template>
   <q-page>
-		<router-view :key="$route.fullPath" />
+		<transition
+			appear
+			enter-active-class="animated fadeIn"
+			leave-active-class="animated fadeOut"
+		>
+			<router-view :key="$route.fullPath" />
+		</transition>
 
 		<div :class="[narrowContainer ? 'swms-narrow' : '']">
 			<q-banner v-if="showBanner" class="bg-deep-orange-2">

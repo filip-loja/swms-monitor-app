@@ -10,11 +10,13 @@
         </q-toolbar-title>
 
 				<template v-if="isLoggedIn">
-					<q-tabs align="left" >
-						<q-route-tab no-caps :to="{name: 'viewTable'}" label="Home" />
-						<q-route-tab no-caps :to="{name: 'pageReports'}" label="Reports" />
-						<q-route-tab no-caps :to="{name: 'pageAlerts'}" label="Alerts" />
-					</q-tabs>
+					<div class="swms-tabs">
+						<q-tabs align="left" >
+							<q-route-tab no-caps :to="{name: 'viewTable'}" label="Home" />
+							<q-route-tab no-caps :to="{name: 'pageReports'}" label="Reports" />
+							<q-route-tab no-caps :to="{name: 'pageAlerts'}" label="Alerts" />
+						</q-tabs>
+					</div>
 					<div class="swms-logout-wrapper">
 						<q-btn flat no-caps @click="logOut"><q-icon name="logout" size="xs" />&nbsp;&nbsp;&nbsp;Log out</q-btn>
 					</div>

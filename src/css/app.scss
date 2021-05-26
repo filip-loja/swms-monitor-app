@@ -24,3 +24,15 @@
 	width: 100%;
 	max-width: 700px;
 }
+
+.swms-tabs .q-tabs .q-tabs__content .q-tab__content {
+	min-width: unset !important;
+}
+
+.swms-tabs.no-indicator .q-tabs .q-tab__indicator {
+	display: none !important;
+}
+
+.swms-tabs.no-indicator {
+	padding-top: 2px;
+}
