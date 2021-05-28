@@ -233,3 +233,22 @@ export const loadManagerKey = (context: A) => {
     context.commit('SET_LOGIN_STATE', true)
   }
 }
+
+export const loadReports = (context: A) => {
+  context.commit('SET_REPORTS', [])
+  context.commit('SET_LOADING', 1)
+  Vue.prototype.$apiManager.get('bin/report/list')
+    .then((resp: any) => {
+      context.commit('SET_REPORTS', resp.data.data)
+    })
+    .catch((err: any) => console.log(err))
+    .finally(() => context.commit('SET_LOADING', -1))
+}
+
+export const deleteReport = (context: A, payload: any) => {
+  context.commit('SET_LOADING', 1)
+  Vue.prototype.$apiManager.delete(`bin/report/${payload.reportId}/${payload.key}`)
+    .then(() => context.commit('DELETE_REPORT', payload.reportId))
+    .catch((err: any) => console.log(err))
+    .finally(() => context.commit('SET_LOADING', -1))
+}

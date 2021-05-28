@@ -19,6 +19,7 @@ export interface StateRoot {
   azureMapCenter: number[];
   azureMapMaxBounds: number[][];
   mapDialogActive: boolean;
+  reports: Report[];
 }
 
 export interface BinDetail {
@@ -41,4 +42,12 @@ export interface BinFilter {
   type?: TypeGarbage;
   location?: any;
   pageSize?: number;
+}
+
+export interface Report {
+  id: string;
+  binId: string;
+  type: TypeGarbage;
+  message: string;
+  _ts: number;
 }

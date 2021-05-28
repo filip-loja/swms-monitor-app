@@ -21,4 +21,5 @@ export default (): StateRoot => ({
   azureMapCenter: [18.620, 48.771],
   azureMapMaxBounds: [[18.591718, 48.759056], [18.652761, 48.792376]],
   mapDialogActive: false,
+  reports: [],
 })

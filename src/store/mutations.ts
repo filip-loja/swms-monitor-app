@@ -1,4 +1,4 @@
-import { BinDetail, BinFilter, StateRoot } from 'src/store/store'
+import { BinDetail, BinFilter, Report, StateRoot } from 'src/store/store'
 import Vue from 'vue'
 
 export const SET_LOGIN_STATE = (state: StateRoot, newState: boolean) => {
@@ -73,4 +73,15 @@ export const CLEAR_SELECTED_BINS = (state: StateRoot) => {
 
 export const SET_MAP_DIALOG = (state: StateRoot, val: boolean) => {
   state.mapDialogActive = val
+}
+
+export const SET_REPORTS = (state: StateRoot, payload: Report[]) => {
+  state.reports = payload
+}
+
+export const DELETE_REPORT = (state: StateRoot, reportId: string) => {
+  const index = state.reports.findIndex(report => report.id === reportId)
+  if (index >= 0) {
+    state.reports.splice(index, 1)
+  }
 }
