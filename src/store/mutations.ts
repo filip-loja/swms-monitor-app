@@ -66,6 +66,11 @@ export const REMOVE_SELECTED_BIN = (state: StateRoot, id: string) => {
   state.selectedBinsCount--
 }
 
+export const CLEAR_SELECTED_BINS = (state: StateRoot) => {
+  state.selectedBins.clear()
+  state.selectedBinsCount = 0
+}
+
 export const SET_MAP_DIALOG = (state: StateRoot, val: boolean) => {
   state.mapDialogActive = val
 }

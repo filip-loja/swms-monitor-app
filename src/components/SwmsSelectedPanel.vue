@@ -1,8 +1,13 @@
 <template>
 	<div class="swms-selected-bins q-px-md q-py-sm">
 		<div class="row justify-between items-center">
-			<div class="text-h6">Selected bins:</div>
-			<div>({{ selectedBinIds.length }})</div>
+			<div class="row items-center no-wrap">
+				<div class="text-h6">Selected bins</div>&nbsp;
+				<div>({{ selectedBinIds.length }})</div>
+			</div>
+			<div>
+				<q-btn round flat dense icon="close" color="negative" @click="clearSelectedBins(false)" />
+			</div>
 		</div>
 
 		<div>
@@ -32,7 +37,7 @@
 			<swms-azure-map-main v-if="points.length" :offset="32" key="route-map" :points="points" calc-route @route-found="loadDirections" />
 			<div class="swms-check-btn" v-if="directions">
 				<q-btn round color="warning" icon="subject" @click="toggleDirectionDialog" />&nbsp;&nbsp;
-				<q-btn round color="positive" icon="check" v-close-popup />
+				<q-btn round color="positive" icon="check" @click="clearSelectedBins(true)" v-close-popup />
 			</div>
 		</swms-map-dialog>
 
@@ -90,9 +95,6 @@ export default Vue.extend({
 	methods: {
 	  calculateRoute () {
 	    this.points = this.$store.state.binItems.filter((binItem : BinDetail) => this.selectedBinIds.includes(binItem.binId))
-			// const coordinates = points.map((binItem : BinDetail) => [binItem.lon, binItem.lat])
-
-			// console.log(coordinates)
       // @ts-ignore
 			this.$refs.dialog.show()
 		},
@@ -101,6 +103,15 @@ export default Vue.extend({
     },
 		toggleDirectionDialog () {
 	    this.directionDialog = !this.directionDialog
+		},
+		clearSelectedBins (withTimeout: boolean) {
+	    if (withTimeout) {
+	    	setTimeout(() => {
+	    		this.$store.commit('CLEAR_SELECTED_BINS')
+				}, 500)
+			} else {
+        this.$store.commit('CLEAR_SELECTED_BINS')
+			}
 		}
 	}
 })

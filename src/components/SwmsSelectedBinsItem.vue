@@ -1,5 +1,5 @@
 <template>
-	<q-card>
+	<q-card square>
 		<div class="row justify-between q-py-xs q-pl-sm q-pr-xs q-mb-sm">
 			<div class="row items-center">
 				<div class="text-bold"><a class="swms-link" @click="showDetail">{{ id }}</a></div>
