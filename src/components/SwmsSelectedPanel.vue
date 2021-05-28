@@ -29,8 +29,39 @@
 		</div>
 
 		<swms-map-dialog ref="dialog">
-			<swms-azure-map-main v-if="points.length" :offset="32" key="route-map" :points="points" calc-route />
+			<swms-azure-map-main v-if="points.length" :offset="32" key="route-map" :points="points" calc-route @route-found="loadDirections" />
+			<div class="swms-check-btn" v-if="directions">
+				<q-btn round color="warning" icon="subject" @click="toggleDirectionDialog" />&nbsp;&nbsp;
+				<q-btn round color="positive" icon="check" v-close-popup />
+			</div>
 		</swms-map-dialog>
+
+		<q-dialog v-model="directionDialog" transition-show="scale" transition-hide="scale">
+			<q-card style="width: 700px">
+				<q-card-section class="q-pb-xs">
+					<div class="text-h6">Directions</div>
+				</q-card-section>
+
+				<hr class="swms-hr" />
+
+				<q-card-section class="q-pt-none">
+					<ol class="swms-directions">
+						<li v-for="(item, index) in directions" :key="index">
+							<span>{{ item.message }}</span>
+							<ul>
+								<li v-for="(msg, i) in item.items" :key="index + '-' + i">{{ msg }}</li>
+							</ul>
+						</li>
+					</ol>
+				</q-card-section>
+
+				<hr class="swms-hr" />
+
+				<q-card-actions align="right" class="q-pt-xs">
+					<q-btn flat label="OK" v-close-popup />
+				</q-card-actions>
+			</q-card>
+		</q-dialog>
 
 	</div>
 </template>
@@ -46,7 +77,9 @@ export default Vue.extend({
 	components: { SwmsSelectedBinsItem, SwmsMapDialog, SwmsAzureMapMain },
 	data () {
 	  return {
-	  	points: []
+	  	points: [],
+      directions: null,
+			directionDialog: false
 		}
 	},
 	computed: {
@@ -62,6 +95,12 @@ export default Vue.extend({
 			// console.log(coordinates)
       // @ts-ignore
 			this.$refs.dialog.show()
+		},
+    loadDirections (payload: any) {
+      this.directions = payload
+    },
+		toggleDirectionDialog () {
+	    this.directionDialog = !this.directionDialog
 		}
 	}
 })
@@ -75,6 +114,30 @@ export default Vue.extend({
 		min-height: calc(100vh - 100px);
 		box-sizing: border-box;
 		border-left: 1px solid $grey-5;
+	}
+
+	.swms-check-btn {
+		display: table;
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+		z-index: 10000000;
+	}
+
+	.swms-directions {
+		padding-left: 20px;
+
+		> li {
+			font-weight: bold;
+			padding-top: 10px;
+		}
+
+		ul {
+			font-weight: normal;
+			li {
+				padding-bottom: 5px;
+			}
+		}
 	}
 
 </style>

@@ -25,7 +25,7 @@ export default Vue.extend({
 	name: 'SwmsMapDialog',
 	data () {
 	  return {
-	    state: false,
+	    state: false
 		}
 	},
 	methods: {
