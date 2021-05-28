@@ -17,5 +17,8 @@ export default (): StateRoot => ({
   idSearchActive: false,
   loading: 0,
   selectedBins: new Set<string>(),
-  selectedBinsCount: 0
+  selectedBinsCount: 0,
+  azureMapCenter: [18.620, 48.771],
+  azureMapMaxBounds: [[18.591718, 48.759056], [18.652761, 48.792376]],
+  mapDialogActive: false,
 })

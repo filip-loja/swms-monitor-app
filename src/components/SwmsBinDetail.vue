@@ -56,7 +56,9 @@
 			<div class="q-pt-sm"></div>
 		</div>
 
-		<swms-map-dialog ref="map" />
+		<swms-map-dialog ref="map">
+			<swms-azure-map :input-position="mapInputPosition" />
+		</swms-map-dialog>
 	</div>
 </template>
 
@@ -65,10 +67,11 @@ import Vue from 'vue'
 import { BinDetail } from 'src/store/store'
 import { copyToClipboard } from 'quasar'
 import SwmsMapDialog from 'components/SwmsMapDialog.vue'
+import SwmsAzureMap from 'components/SwmsAzureMap.vue'
 
 export default Vue.extend({
 	name: 'SwmsDrawer',
-	components: { SwmsMapDialog },
+	components: { SwmsMapDialog, SwmsAzureMap },
 	data () {
 	  return {
 			fullnessValue: 0
@@ -85,12 +88,8 @@ export default Vue.extend({
 			})
 		},
     showOnMap () {
-	    const payload = {
-	      lat: this.model.lat,
-				lon: this.model.lon
-			}
-	    // @ts-ignore
-	    this.$refs.map.show(payload)
+		  // @ts-ignore
+	    this.$refs.map.show()
 		},
 	},
 	computed: {
@@ -104,6 +103,12 @@ export default Vue.extend({
 	    if (this.fullnessValue <= 33) return 'positive'
 			if (this.fullnessValue <= 66) return 'warning'
 	    return 'negative'
+		},
+		mapInputPosition (): any {
+	    return {
+        lat: this.model.lat,
+        lon: this.model.lon
+      }
 		}
 	},
 	mounted () {

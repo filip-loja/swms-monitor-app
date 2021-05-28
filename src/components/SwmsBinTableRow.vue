@@ -4,7 +4,9 @@
 		<td>{{ index + 1 }}</td>
 		<td><a class="swms-link" @click="viewDetails()">{{ model.binId }}</a></td>
 		<td><swms-badge :value="model.type" /></td>
-		<td><swms-badge :value="model.status" /></td>
+		<td>{{ fullnessValue }}%</td>
+		<td>{{ smokeValue }}%</td>
+		<td>{{ tiltValue }}%</td>
 		<td>
 			<q-btn round flat color="primary" icon="visibility" size="sm" @click="viewDetails()" />
 		</td>
@@ -21,6 +23,13 @@ export default Vue.extend({
 	props: {
 	  model: { type: Object as PropType<BinDetail>, required: true },
 		index: { type: Number, required: true }
+	},
+	data () {
+	  return {
+	    fullnessValue: 22,
+			smokeValue: 10,
+			tiltValue: 5,
+		}
 	},
 	computed: {
     selectedBins (): string[] {
@@ -51,7 +60,7 @@ export default Vue.extend({
 		td {
 			text-align: center;
 			padding: 3px 7px;
-			width: 32%;
+			width: 20%;
 		}
 
 		td:first-child,

@@ -6,8 +6,10 @@
 				<th>#</th>
 				<th>Bin ID</th>
 				<th>Type</th>
-				<th>Status</th>
-				<th>Actions</th>
+				<th>Fullness</th>
+				<th>Smoke</th>
+				<th>Tilt</th>
+				<th>Action</th>
 			</tr>
 			<swms-bin-table-row
 				v-for="(item, index) in binItems"

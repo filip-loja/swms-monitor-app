@@ -16,6 +16,9 @@ export interface StateRoot {
   loading: number;
   selectedBins: Set<string>;
   selectedBinsCount: number;
+  azureMapCenter: number[];
+  azureMapMaxBounds: number[][];
+  mapDialogActive: boolean;
 }
 
 export interface BinDetail {
