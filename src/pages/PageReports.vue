@@ -1,6 +1,9 @@
 <template>
 	<div class="q-pa-md swms-narrow">
-		<div class="text-h4">Reports</div>
+		<div class="row justify-between items-center">
+			<div class="text-h4">Reports</div>
+			<div><q-btn round flat dense icon="refresh" @click="refresh" /></div>
+		</div>
 		<hr class="swms-hr" />
 		<q-list padding bordered class="rounded-borders" v-if="reports.length">
 
@@ -79,6 +82,9 @@ export default Vue.extend({
       }).onOk(() => {
         void this.$store.dispatch('deleteReport', { reportId, key })
       })
+		},
+		refresh () {
+	    window.location.reload()
 		}
 	},
 	mounted () {

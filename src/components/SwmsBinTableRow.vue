@@ -4,22 +4,23 @@
 		<td>{{ index + 1 }}</td>
 		<td><a class="swms-link" @click="viewDetails()">{{ model.binId }}</a></td>
 		<td><swms-badge :value="model.type" /></td>
-		<td>{{ fullnessValue || '-' }}<q-icon name="warning" color="negative" class="q-pl-xs q-pb-xs" v-if="alertFull"><q-tooltip>This bin is full</q-tooltip></q-icon></td>
-		<td>{{ smokeValue || '-' }}<q-icon name="warning" color="negative" class="q-pl-xs q-pb-xs" v-if="alertFire"><q-tooltip>Possible danger of fire!</q-tooltip></q-icon></td>
-		<td>{{ tiltValue || '-' }}<q-icon name="warning" color="negative" class="q-pl-xs q-pb-xs" v-if="alertFlip"><q-tooltip>This bin appears to have been flipped over!</q-tooltip></q-icon></td>
-		<td>
-			<q-btn round flat color="primary" icon="visibility" size="sm" @click="viewDetails()" />
-		</td>
+		<td>{{ fullnessValue || '-' }}<swms-telemetry-warning v-if="alertFull" message="This bin is full" /></td>
+		<td>{{ smokeValue || '-' }}<swms-telemetry-warning v-if="alertFire" message="Possible danger of fire!" /></td>
+		<td>{{ tiltValue || '-' }}<swms-telemetry-warning v-if="alertFlip" message="This bin appears to have been flipped over!" /></td>
+		<td><q-btn round flat color="primary" icon="visibility" size="sm" @click="viewDetails()" /></td>
 	</tr>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { BinDetail, BinTelemetry } from '../store/store'
+import { BinDetail } from '../store/store'
 import SwmsBadge from 'components/SwmsBadge.vue'
+import MixinTelemetry from 'src/mixins/MixinTelemetry'
+import SwmsTelemetryWarning from 'components/SwmsTelemetryWarning.vue'
 export default Vue.extend({
 	name: 'SwmsBinTableRow',
-	components: { SwmsBadge },
+	components: { SwmsBadge, SwmsTelemetryWarning },
+	mixins: [MixinTelemetry],
 	props: {
 	  model: { type: Object as PropType<BinDetail>, required: true },
 		index: { type: Number, required: true }
@@ -30,31 +31,6 @@ export default Vue.extend({
     },
 		isSelected (): boolean {
       return this.selectedBins.includes(this.model.binId)
-		},
-		myTelemetry (): BinTelemetry {
-      const stream = this.$store.state.telemetry[this.model.binId]
-      if (!stream || stream.length === 0) {
-        return null
-      }
-      return stream[ stream.length - 1 ]
-		},
-		fullnessValue (): string {
-      return this.myTelemetry && this.myTelemetry.fullness.toFixed(2) + '%'
-		},
-		smokeValue (): string {
-      return this.myTelemetry && this.myTelemetry.smoke.toFixed(2) + '%'
-		},
-    tiltValue (): string {
-      return this.myTelemetry && this.myTelemetry.tilt.toFixed(2) + '%'
-    },
-    alertFull (): boolean {
-      return this.myTelemetry && this.myTelemetry.alertFull
-		},
-    alertFlip (): boolean {
-      return this.myTelemetry && this.myTelemetry.alertFlip
-		},
-    alertFire (): boolean {
-      return this.myTelemetry && this.myTelemetry.alertFire
 		}
 	},
 	methods: {

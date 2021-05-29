@@ -12,7 +12,7 @@
 				</transition>
 
 				<div :class="[narrowContainer ? 'swms-narrow' : '']">
-					<q-banner v-if="showBanner" class="bg-deep-orange-2">
+					<q-banner v-if="showBanner" class="bg-deep-orange-2 q-mx-lg">
 						<template v-slot:avatar>
 							<q-icon name="sentiment_dissatisfied" color="negative" />
 						</template>

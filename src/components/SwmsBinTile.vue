@@ -18,23 +18,23 @@
 					size="47px"
 					font-size="12px"
 					:thickness="0.25"
-					:value="fullnessValue"
+					:value="fullnessValueNum"
 					:color="fullnessColor"
 					track-color="grey-3"
 					center-color="white"
 				>
-					{{ fullnessValue }}%
+					{{ fullnessValueNum }}%
 				</q-circular-progress>
 			</div>
 		</div>
 		<hr class="swms-hr" />
 		<div class="row">
 			<div class="col">
-				<div>{{ valueSmoke }}%</div>
+				<div>{{ smokeValue || '-' }}<swms-telemetry-warning v-if="alertFire" message="Possible danger of fire!" /></div>
 				<div class="text-caption text-weight-light" style="margin-top: -3px"><small>Smoke</small></div>
 			</div>
 			<div class="col">
-				<div>{{ valueTilt }}%</div>
+				<div>{{ tiltValue || '-' }}<swms-telemetry-warning v-if="alertFlip" message="This bin appears to have been flipped over!" /></div>
 				<div class="text-caption text-weight-light" style="margin-top: -3px"><small>Tilt</small></div>
 			</div>
 		</div>
@@ -45,28 +45,28 @@
 import Vue, { PropType } from 'vue'
 import { BinDetail } from '../store/store'
 import SwmsBadge from 'components/SwmsBadge.vue'
+import MixinTelemetry from 'src/mixins/MixinTelemetry'
+import SwmsTelemetryWarning from 'components/SwmsTelemetryWarning.vue'
 export default Vue.extend({
 	name: 'SwmsBinTile',
-	components: { SwmsBadge },
+	components: { SwmsBadge, SwmsTelemetryWarning },
+	mixins: [MixinTelemetry],
 	props: {
 	  model: { type: Object as PropType<BinDetail>, required: true }
-	},
-	data () {
-	  return {
-      fullnessValue: 22,
-			valueSmoke: 0,
-			valueTilt: 0,
-		}
 	},
 	computed: {
 		isSelected (): boolean {
       return this.$store.getters['selectedBins'].includes(this.model.binId)
 		},
     fullnessColor (): 'positive' | 'warning' | 'negative' {
-      if (this.fullnessValue <= 33) return 'positive'
-      if (this.fullnessValue <= 66) return 'warning'
+		  if (this.fullnessValueNum <= 33) return 'positive'
+			if (this.fullnessValueNum <= 66) return 'warning'
       return 'negative'
-    }
+    },
+    fullnessValueNum (): number {
+      // @ts-ignore
+      return (this.myTelemetry && this.myTelemetry.fullness) || 0
+    },
 	},
 	methods: {
     selectBin (e: MouseEvent) {
