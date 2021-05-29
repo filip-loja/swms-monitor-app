@@ -67,5 +67,6 @@ export interface BinTelemetry {
 
 export interface BinAlert {
   binId: string;
-  type: 'fire' | 'flip'
+  type: 'fire' | 'flip',
+  time: string;
 }

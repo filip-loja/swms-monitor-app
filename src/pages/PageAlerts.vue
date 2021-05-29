@@ -17,6 +17,7 @@
 				<th class="text-center">Type</th>
 				<th class="text-left">Bin ID</th>
 				<th class="text-left">Message</th>
+				<th class="text-left">Last measure</th>
 				<th class="text-center">Action</th>
 			</tr>
 			<tr v-for="(alert, index) in alertItems" :key="index + '-' + alert.binId">
@@ -30,6 +31,7 @@
 				</td>
 				<td><a class="swms-link" @click="showBinDetail(alert.binId)">{{ alert.binId }}</a></td>
 				<td>{{ alert.type === 'fire' ? 'Possible danger of fire!' : 'The bin appears to have been flipped over!' }}</td>
+				<td><small>{{ alert.time}}</small></td>
 				<td class="text-center"><q-btn round flat color="primary" icon="visibility" size="sm" @click="showBinDetail(alert.binId)" /></td>
 			</tr>
 		</table>
