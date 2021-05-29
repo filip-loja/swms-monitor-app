@@ -22,7 +22,7 @@ export class WsConnection {
   }
 
   receiveTelemetry (message: any) {
-    console.log(message)
+    void this.store.dispatch('processTelemetry', message)
   }
 
 }

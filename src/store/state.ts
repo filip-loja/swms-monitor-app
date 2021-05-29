@@ -22,4 +22,5 @@ export default (): StateRoot => ({
   azureMapMaxBounds: [[18.591718, 48.759056], [18.652761, 48.792376]],
   mapDialogActive: false,
   reports: [],
+  telemetry: {}
 })

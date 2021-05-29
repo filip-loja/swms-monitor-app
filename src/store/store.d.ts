@@ -20,6 +20,9 @@ export interface StateRoot {
   azureMapMaxBounds: number[][];
   mapDialogActive: boolean;
   reports: Report[];
+  telemetry: {
+    [key: string]: any[]
+  }
 }
 
 export interface BinDetail {
@@ -49,5 +52,15 @@ export interface Report {
   binId: string;
   type: TypeGarbage;
   message: string;
+  _ts: number;
+}
+
+export interface BinTelemetry {
+  fullness: number;
+  smoke: number;
+  tilt: number;
+  alertFull?: boolean;
+  alertFire?: boolean;
+  alertFlip?: boolean;
   _ts: number;
 }

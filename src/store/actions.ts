@@ -1,5 +1,5 @@
 import { ActionContext } from 'vuex'
-import { BinFilter, StateRoot } from 'src/store/store'
+import { BinDetail, BinFilter, StateRoot } from 'src/store/store'
 import { Notify } from 'quasar'
 import Vue from 'vue'
 import config from 'src/config'
@@ -131,4 +131,8 @@ export const deleteReport = (context: A, payload: any) => {
     .then(() => context.commit('DELETE_REPORT', payload.reportId))
     .catch((err: any) => console.log(err))
     .finally(() => context.commit('SET_LOADING', -1))
+}
+
+export const processTelemetry = (context: A, payload: any[]) => {
+  context.commit('PROCESS_TELEMETRY', payload)
 }

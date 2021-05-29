@@ -1,4 +1,5 @@
-import { BinFilter, Report, StateRoot } from 'src/store/store'
+import { BinDetail, BinFilter, Report, StateRoot } from 'src/store/store'
+import Vue from 'vue'
 
 export const SET_LOGIN_STATE = (state: StateRoot, newState: boolean) => {
   state.loggedIn = newState
@@ -25,11 +26,16 @@ export const SET_FILTER_OBJ = (state: StateRoot, obj: BinFilter) => {
 }
 
 export const APPEND_ITEMS = (state: StateRoot, items: any[]) => {
+  const ids = items.map((item: BinDetail) => item.binId)
+  for (const id of ids) {
+    Vue.set(state.telemetry, id, [])
+  }
   state.binItems.push(...items)
 }
 
 export const CLEAR_ITEMS = (state: StateRoot) => {
   state.binItems = []
+  state.telemetry = {}
 }
 
 export const SET_NEXT_TOKEN = (state: StateRoot, token: string) => {
@@ -68,5 +74,13 @@ export const DELETE_REPORT = (state: StateRoot, reportId: string) => {
   const index = state.reports.findIndex(report => report.id === reportId)
   if (index >= 0) {
     state.reports.splice(index, 1)
+  }
+}
+
+export const PROCESS_TELEMETRY = (state: StateRoot, payload: any[]) => {
+  for (const msg of payload) {
+    if (msg.binId in state.telemetry) {
+      state.telemetry[msg.binId].push(Object.assign({}, msg, {id: undefined, _rid: undefined, _self: undefined, _etag: undefined, type: undefined, _lsn: undefined}))
+    }
   }
 }
