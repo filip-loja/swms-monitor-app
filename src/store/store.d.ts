@@ -64,3 +64,8 @@ export interface BinTelemetry {
   alertFlip?: boolean;
   _ts: number;
 }
+
+export interface BinAlert {
+  binId: string;
+  type: 'fire' | 'flip'
+}

@@ -13,7 +13,6 @@ const routes: RouteConfig[] = [
     children: [
       {
         path: '',
-        name: 'home',
         component: () => import('pages/Index.vue'),
         beforeEnter (to, from, next) {
 
@@ -49,7 +48,7 @@ const routes: RouteConfig[] = [
         component: () => import('pages/LogIn.vue'),
         beforeEnter (to, from, next) {
           if (store.state.loggedIn) {
-            next({ name: 'home' })
+            next({ name: 'viewTable' })
           } else {
             next()
           }
