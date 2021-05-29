@@ -20,10 +20,18 @@ export const alerts = (state: StateRoot): BinAlert[] => {
     }
     const lastTelemetry: BinTelemetry = state.telemetry[binId][ state.telemetry[binId].length - 1 ]
     if (lastTelemetry.alertFire) {
-      alerts.push({ binId, type: 'fire', time: new Date(lastTelemetry._ts * 1000).toString().split('GMT')[0].trim() })
+      alerts.push({
+        id: binId + '-fire',
+        binId,
+        type: 'fire',
+        time: new Date(lastTelemetry._ts * 1000).toString().split('GMT')[0].trim() })
     }
     if (lastTelemetry.alertFlip) {
-      alerts.push({ binId, type: 'flip', time: new Date(lastTelemetry._ts * 1000).toString().split('GMT')[0].trim() })
+      alerts.push({
+        id: binId + '-flip',
+        binId,
+        type: 'flip',
+        time: new Date(lastTelemetry._ts * 1000).toString().split('GMT')[0].trim() })
     }
   })
 

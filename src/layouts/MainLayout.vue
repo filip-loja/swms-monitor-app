@@ -41,6 +41,8 @@ import Vue from 'vue'
 import SwmsDrawer from 'components/SwmsDrawer.vue'
 import SwmsLoader from 'components/SwmsLoader.vue'
 import SwmsOptionPanel from 'components/SwmsOptionPanel.vue'
+import { BinAlert } from 'src/store/store'
+import * as _ from 'lodash'
 export default Vue.extend({
   name: 'MainLayout',
 	components: { SwmsDrawer, SwmsLoader, SwmsOptionPanel },
@@ -50,6 +52,18 @@ export default Vue.extend({
 	methods: {
     logOut () {
       void this.$store.dispatch('logOut').then(() => this.$router.push({ name: 'logIn' }))
+		},
+		showAlert (payload: BinAlert) {
+      this.$q.notify({
+        progress: true,
+        message: payload.type === 'fire' ? 'Possible danger of fire!' : 'The bin appears to have been flipped over!' + `  (${payload.binId})`,
+        color: 'negative',
+        timeout: 4000,
+				position: 'bottom',
+        actions: [
+          { label: 'Show', noCaps: true, color: 'white', handler: () => this.$store.dispatch('openDrawer', payload.binId) }
+        ]
+      })
 		}
 	},
 	computed: {
@@ -58,6 +72,22 @@ export default Vue.extend({
     },
 		showOptionPanel (): boolean {
       return ['viewTable', 'viewTile', 'viewMap'].includes(this.$route.name)
+		},
+		alerts (): BinAlert[] {
+      return this.$store.getters['alerts']
+		}
+	},
+	watch: {
+    alerts: {
+      handler (newValue: BinAlert[], oldValue: BinAlert[]) {
+        const diff = _.differenceBy(newValue, oldValue, 'id')
+				if (diff && diff.length) {
+          for (const alertItem of diff) {
+            this.showAlert(alertItem)
+          }
+				}
+			},
+			immediate: true
 		}
 	}
 })
