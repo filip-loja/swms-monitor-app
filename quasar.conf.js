@@ -25,9 +25,9 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v1.quasar.dev/quasar-cli/boot-files
     boot: [
-
       'axios',
-      'load-cookies'
+      'load-cookies',
+      'ws/ws'
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -55,7 +55,8 @@ module.exports = configure(function (ctx) {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       env: {
         // TODO
-        managerApiUrl: ctx.dev ? 'http://localhost:3000/' : ''
+        managerApiUrl: ctx.dev ? 'http://localhost:3000/' : '',
+        wsApiUrl: 'http://swms-event-hub.westeurope.azurecontainer.io:3001'
       },
 
       // transpile: false,
@@ -111,7 +112,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Dialog', 'Notify', 'Cookies']
+      plugins: ['Dialog', 'Notify', 'Cookies', 'Meta']
     },
 
     // animations: 'all', // --- includes all animations

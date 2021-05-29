@@ -15,7 +15,8 @@
     "azure-maps-control": "^2.0.32",
     "azure-maps-rest": "^2.0.5",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

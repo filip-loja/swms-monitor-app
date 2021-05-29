@@ -1,5 +1,4 @@
-import { BinDetail, BinFilter, Report, StateRoot } from 'src/store/store'
-import Vue from 'vue'
+import { BinFilter, Report, StateRoot } from 'src/store/store'
 
 export const SET_LOGIN_STATE = (state: StateRoot, newState: boolean) => {
   state.loggedIn = newState
@@ -36,20 +35,6 @@ export const CLEAR_ITEMS = (state: StateRoot) => {
 export const SET_NEXT_TOKEN = (state: StateRoot, token: string) => {
   // @ts-ignore
   state.nextToken = token
-}
-
-export const DELETE_BIN = (state: StateRoot, binId: string) => {
-  const index = state.binItems.findIndex((item: BinDetail) => item.binId === binId)
-  if (index >= 0) {
-    state.binItems.splice(index, 1)
-  }
-}
-
-export const UPDATE_BIN = (state: StateRoot, payload: BinDetail) => {
-  const index = state.binItems.findIndex((item: BinDetail) => item.binId === payload.binId)
-  if (index >= 0) {
-    Vue.set(state.binItems, index, Object.assign({}, state.binItems[index], payload))
-  }
 }
 
 export const SET_FIND_ID_FLAG = (state: StateRoot, flagValue: boolean) => {
