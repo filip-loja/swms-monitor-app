@@ -55,7 +55,8 @@ module.exports = configure(function (ctx) {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       env: {
         // TODO
-        managerApiUrl: ctx.dev ? 'http://localhost:3000/' : '',
+        managerApiUrl: ctx.dev ? 'http://localhost:3000/' : 'http://swms-manager-server.westeurope.azurecontainer.io:3000/',
+        // managerApiUrl: 'http://swms-manager-server.westeurope.azurecontainer.io:3000/',
         wsApiUrl: 'http://swms-event-hub.westeurope.azurecontainer.io:3001'
       },
 
